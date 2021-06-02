@@ -69,8 +69,7 @@ function(Window, View, DefaultMode, ExposeMode) {
 		],
 
 		modes: {
-			'default': DefaultMode,
-			'expose': ExposeMode
+			'default': DefaultMode
 		},
 
 		set mode(value) {
