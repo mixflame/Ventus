@@ -1780,7 +1780,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;
 
   var DefaultMode = {
     register: function register() {
-      console.log('Default mode registered.');
+      //       console.log('Default mode registered.');
     },
 
 
@@ -1825,28 +1825,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
   var ExposeMode = {
     // Launch when plugin is registered.
     register: function register() {
-      var _this = this;
+      //       console.log('Expose mode registered.');
 
-      console.log('Expose mode registered.');
-
-      this.view.on('contextmenu', throttle(function (event) {
-        // Right click sets expose mode.
-        if (_this.mode !== 'expose') {
-          if (_this.windows.length > 0) {
-            _this.mode = 'expose';
-          }
-        } else if (_this.mode === 'expose') {
-          _this.mode = 'default';
-        }
-        event.stopPropagation();
-        event.preventDefault();
-      }, 1000));
+      //       this.view.on(
+      //         'contextmenu',
+      //         throttle(event => {
+      //           // Right click sets expose mode.
+      //           if (this.mode !== 'expose') {
+      //             if (this.windows.length > 0) {
+      //               this.mode = 'expose';
+      //             }
+      //           } else if (this.mode === 'expose') {
+      //             this.mode = 'default';
+      //           }
+      // 					event.stopPropagation();
+      // 					event.preventDefault();
+      //         }, 1000)
+      //       );
     },
 
 
     // Launch when plugin is enabled.
     plug: function plug() {
-      var _this2 = this;
+      var _this = this;
 
       var grid = Math.ceil(this.windows.length / 2);
       var maxWidth = Math.floor(this.view.width / grid);
@@ -1859,7 +1860,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
       this.view.el.classList.add('expose');
 
       var _loop = function _loop(_win, i, len) {
-        _win = _this2.windows[i];
+        _win = _this.windows[i];
         _win.stamp();
 
         // Scale factor.
@@ -1907,22 +1908,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
       this.overlay = true;
       this.view.one('click', function () {
-        _this2.mode = 'default';
+        _this.mode = 'default';
       });
     },
 
 
     // Lauch when plugin is disabled
     unplug: function unplug() {
-      var _this3 = this;
+      var _this2 = this;
 
       return new Promise(function (done) {
-        if (_this3.windows.length === 0) {
+        if (_this2.windows.length === 0) {
           done();
         }
 
-        for (var _win2, i = _this3.windows.length; i--;) {
-          _win2 = _this3.windows[i];
+        for (var _win2, i = _this2.windows.length; i--;) {
+          _win2 = _this2.windows[i];
           _win2.restore();
           _win2.view.el.style.transform = 'scale(1)';
           _win2.view.el.style.transformOrigin = '50% 50%';
@@ -1937,18 +1938,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
           }(_win2, i);
 
           if (_win2.animations) {
-            _this3.view.onTransitionEnd(removeTransform, _this3);
+            _this2.view.onTransitionEnd(removeTransform, _this2);
           } else {
-            removeTransform.call(_this3);
+            removeTransform.call(_this2);
           }
 
           _win2.movable = true;
           _win2.enabled = true;
         }
 
-        _this3.overlay = false;
+        _this2.overlay = false;
       }).then(function () {
-        _this3.view.el.classList.remove('expose');
+        _this2.view.el.classList.remove('expose');
       });
     },
 
