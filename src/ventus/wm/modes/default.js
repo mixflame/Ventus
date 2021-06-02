@@ -8,7 +8,7 @@ define(function() {
 
   const DefaultMode = {
     register() {
-      console.log('Default mode registered.');
+//       console.log('Default mode registered.');
     },
 
     actions: {
